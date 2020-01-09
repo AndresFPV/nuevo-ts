@@ -16,6 +16,9 @@ class LoginController implements IControllerBase {
   public initRoutes() {
     this.router.get('/', sessionFalseMiddleware ,this.index)
     this.router.post('/access', sessionFalseMiddleware ,this.access)
+    this.router.get('/reset_password', sessionFalseMiddleware ,this.resetPassword)
+    this.router.get('/signac_in', sessionFalseMiddleware ,this.signUser)
+    this.router.get('/reset', sessionFalseMiddleware ,this.reset)
   }
 
   index = (req: Request, res: Response) => {
@@ -52,6 +55,85 @@ class LoginController implements IControllerBase {
       }
       res.status(200).render('login/index', locals)
     }
+  }
+
+
+  reset = (req: Request, res: Response) => {
+    let mail = req.body.mail
+    let mails = [
+      'pepe@ulima.edu.pe',
+      'nacho@ulima.edu.pe',
+      'nader@ulima.edu.pe',
+      'renato@ulima.edu.pe',
+      'andres@ulima.edu.pe',
+  ]
+
+  let exist : boolean = false
+  mails.forEach(function (temp){
+      if(temp == mail){
+        exist = true
+      }
+  });
+
+    if(exist){
+      let locals = {
+        title: 'Bienvenido',
+        constants: constants,
+        message_color: 'text-danger',
+        message: 'Se ha enviado un correo para reinicio de contraseña',
+        csss: loadCss([
+          'assets/css/styles',
+          'assets/css/login',
+        ]), 
+        jss: loadJs([]), 
+      }
+      res.status(200).render('login/index', locals)
+    }else{
+      let locals = {
+        title: 'Bienvenido',
+        constants: constants,
+        message_color: 'text-danger',
+        message: 'Correo no registrado',
+        csss: loadCss([
+          'assets/css/styles',
+          'assets/css/login',
+        ]), 
+        jss: loadJs([]), 
+      }
+      res.status(500).render('login/reset', locals)
+    }
+  }
+
+  //reset password
+  resetPassword = (req: Request, res: Response) => {
+    let locals = {
+      title: 'Bienvenido',
+      constants: constants,
+      message_color: '',
+      message: '',
+      csss: loadCss([
+        'assets/css/styles',
+        'assets/css/login',
+      ]), 
+      jss: loadJs([]), 
+    }
+    res.status(200).render('login/reset', locals)
+  }
+
+  //registrar
+  signUser = (req: Request, res: Response) => {
+    let locals = {
+      title: 'Bienvenido',
+      constants: constants,
+      message_color: '',
+      message: '',
+      csss: loadCss([
+        'assets/css/styles',
+        'assets/css/login',
+      ]), 
+      jss: loadJs([]), 
+    }
+    res.status(200).render('login/sign', locals)
   }
 }
 
