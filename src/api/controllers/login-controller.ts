@@ -15,10 +15,11 @@ class LoginController implements IControllerBase {
 
   public initRoutes() {
     this.router.get('/', sessionFalseMiddleware ,this.index)
+    this.router.get('/reset', sessionFalseMiddleware ,this.resetPassword)
     this.router.post('/access', sessionFalseMiddleware ,this.access)
-    this.router.get('/reset_password', sessionFalseMiddleware ,this.resetPassword)
+    this.router.get('/reset_password', sessionFalseMiddleware ,this.resetPass)
     this.router.get('/signac_in', sessionFalseMiddleware ,this.signUser)
-    this.router.get('/reset', sessionFalseMiddleware ,this.reset)
+    
   }
 
   index = (req: Request, res: Response) => {
@@ -58,7 +59,7 @@ class LoginController implements IControllerBase {
   }
 
 
-  reset = (req: Request, res: Response) => {
+  resetPassword = (req: Request, res: Response) => {
     let mail = req.body.mail
     let mails = [
       'pepe@ulima.edu.pe',
@@ -66,14 +67,14 @@ class LoginController implements IControllerBase {
       'nader@ulima.edu.pe',
       'renato@ulima.edu.pe',
       'andres@ulima.edu.pe',
-  ]
+    ] 
 
-  let exist : boolean = false
-  mails.forEach(function (temp){
-      if(temp == mail){
-        exist = true
-      }
-  });
+    let exist : boolean = false
+    mails.forEach(function (temp){
+        if(temp == mail){
+          exist = true
+        }
+    });
 
     if(exist){
       let locals = {
@@ -105,7 +106,7 @@ class LoginController implements IControllerBase {
   }
 
   //reset password
-  resetPassword = (req: Request, res: Response) => {
+  resetPass = (req: Request, res: Response) => {
     let locals = {
       title: 'Bienvenido',
       constants: constants,
