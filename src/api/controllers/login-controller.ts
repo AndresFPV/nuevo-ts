@@ -15,7 +15,7 @@ class LoginController implements IControllerBase {
 
   public initRoutes() {
     this.router.get('/', sessionFalseMiddleware ,this.index)
-    this.router.get('/reset', sessionFalseMiddleware ,this.resetPassword)
+    this.router.post('/reset', sessionFalseMiddleware ,this.resetPassword)
     this.router.post('/access', sessionFalseMiddleware ,this.access)
     this.router.get('/reset_password', sessionFalseMiddleware ,this.resetPass)
     this.router.get('/signac_in', sessionFalseMiddleware ,this.signUser)
@@ -80,7 +80,7 @@ class LoginController implements IControllerBase {
       let locals = {
         title: 'Bienvenido',
         constants: constants,
-        message_color: 'text-danger',
+        message_color: 'text-success',
         message: 'Se ha enviado un correo para reinicio de contraseña',
         csss: loadCss([
           'assets/css/styles',
